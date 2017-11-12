@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<title>Kyle Peyton: {{ page.title }}</title>
+			<link rel="icon"  type="image/png"    href="https://kylepeyton.github.io/assets/cropic.jpg">
+			<link href="https://fonts.googleapis.com/css?family=Istok+Web" rel="stylesheet">
+			<link rel="stylesheet" type="text/css" href="/css/main.css">
+			
+		</head>
+		<body>
+			<nav>
+	    		<ul>
+	        		<li><a href="/">Home</a></li>
+	        		<li><a href="/contact">Contact</a></li>
+	        		<!-- <li><a href="/cv">CV</a></li> -->
+	        		<!-- <li><a href="/blog">Blog</a></li> -->
+	    		</ul>
+			</nav>
+			<h2>Kyle Peyton</h2>
+			<div class="container">
+			
+			{{ content }}
+			
+			</div><!-- /.container -->
+			<footer>
+	    		<ul>
+	        		<li><a href="mailto:kyle.peyton@yale.edu">email</a></li>
+	        		<li><a href="https://github.com/kylepeyton">github.com/kylepeyton</a></li>
+				</ul>
+			</footer>
+			
+			{% include analytics.html %}
+		</body>
+	</html>
