@@ -14,11 +14,26 @@ kyle.peyton@yale.edu
 
 **Or find me on:**  
 
-[LinkedIn](https://www.linkedin.com/in/kyle-peyton-324790125){:target="_blank"}
-
-[Twitter](https://twitter.com/peyton_k){:target="_blank"}
-
-[Google Scholar](https://scholar.google.com/citations?user=Hccq-KMAAAAJ&hl=en){:target="_blank"}
-
-[Dataverse](https://dataverse.harvard.edu/dataverse.xhtml?alias=kpeyton){:target="_blank"}
-
+<ul>
+{% if site.twitter_username %}
+  <li>
+    <a href="https://twitter.com/{{ site.twitter_username }}">
+      <i class="fa fa-twitter"></i> Twitter
+    </a>
+  </li>
+{% endif %}
+{% if site.github_username %}
+  <li>
+    <a href="https://github.com/{{ site.github_username }}">
+      <i class="fa fa-github"></i> GitHub
+    </a>
+  </li>
+{% endif %}
+{% if site.linkedin_username %}
+  <li>
+    <a href="https://linkedin.com/in/{{ site.linkedin_username }}">
+      <i class="fa fa-linkedin"></i> LinkedIn
+    </a>
+  </li>
+{% endif %}
+</ul>
