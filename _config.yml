@@ -1,2 +1,15 @@
-name: Kyle Peyton, PhD student
+# Site settings
+title: Kyle's Academic Website
+email: kyle.peyton@yale.edu
+description: > # this means to ignore newlines until "baseurl:"
+  Kyle Peyton, PhD student, Yale University
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://kylepeyton.github.io" # the base hostname & protocol for your site
+twitter_username: peyton_k 
+github_username:  kylepeyton
+
+gems:
+  - jekyll-sitemap
+
+# Build settings
 markdown: kramdown
