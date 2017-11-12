@@ -6,7 +6,7 @@ title: "Home"
 
 I'm a PhD candidate in political science at Yale University and a graduate student affiliate at the 
 [Institution for Social and Policy Studies](https://isps.yale.edu/)and the 
-[Center for the Study of American Politics] (https://csap.yale.edu/).
+[Center for the Study of American Politics](https://csap.yale.edu/).
 I'm a research affiliate with the [Human Cooperation Lab](http://davidrand-cooperation.com/lab/) in the Psychology Department and 
 the [Justice Collaboratory](https://law.yale.edu/justice-collaboratory) at Yale Law School. 
 I also work as a statistical consultant at the [Yale StatLab](http://statlab.stat.yale.edu/).
