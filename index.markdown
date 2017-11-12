@@ -5,8 +5,8 @@ title: "Home"
 <img style="float: left; width: 250px; margin: 0 20px 10px 0" src="/assets/photo.jpg" alt="pic" />
 
 I'm a PhD candidate in political science at Yale University and a graduate student affiliate at the 
-[Institution for Social and Policy Studies](https://isps.yale.edu/){:target="_blank"} and the 
-[Center for the Study of American Politics] (https://csap.yale.edu/){:target="_blank"}.
+[Institution for Social and Policy Studies](https://isps.yale.edu/)and the 
+[Center for the Study of American Politics] (https://csap.yale.edu/).
 I'm also a research affiliate with the [Human Cooperation Lab](http://davidrand-cooperation.com/lab/) in the Psychology Department and 
 the [Justice Collaboratory](https://law.yale.edu/justice-collaboratory) at Yale Law School. 
 My research focuses on political behavior and the design and analysis of experiments for social science research.
