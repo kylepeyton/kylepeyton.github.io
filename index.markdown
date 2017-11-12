@@ -18,6 +18,6 @@ I am an experienced statistical consultant and enjoy collaborating with industry
 Fellow in the [Melbourne Institute of Applied Economics and Social Research](http://melbourneinstitute.unimelb.edu.au/) at the 
 [University of Melbourne](http://www.unimelb.edu.au/). 
 
-I completed an M.A. in Statistics from the [Department of Statistics and Data Science](http://statistics.yale.edu/) at Yale University in 2017, and have an undergraduate degree in Accounting and Economics from the [Quinlan School of Business at Loyola University Chicago](https://www.luc.edu/quinlan/index.shtml).
+I completed an M.A. in Statistics from the [Department of Statistics and Data Science](http://statistics.yale.edu/) at Yale University in 2017, and have an undergraduate degree in Accounting and Economics from the [Quinlan School of Business at Loyola University Chicago](https://www.luc.edu/quinlan/index.shtml). My cv is [here](https://kylepeyton.github.io/assets/Peyton_Kyle_CV.pdf). 
 
 
