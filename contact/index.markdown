@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: design-kp
 title: "Contact"
 ---
 
