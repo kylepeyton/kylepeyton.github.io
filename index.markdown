@@ -12,7 +12,7 @@ I also work as a statistical consultant at the [Yale StatLab](http://statlab.sta
 
 My research focuses on political behavior and the design and analysis of experiments for social science research. 
 For the 2017-2018 academic term I'm a [ISPS Graduate Policy Fellow](https://isps.yale.edu/team/directory/graduate-policy-fellow), 
-studying how the American public's dissatisfaction with government affects support for redistribution.
+studying how dissatisfaction with government affects support for redistribution in the United States.
 
 Before graduate school I emigrated to Melbourne, Australia where I worked on public policy research as a Research 
 Fellow at the [Melbourne Institute of Applied Economics and Social Research](http://melbourneinstitute.unimelb.edu.au/) at the 
