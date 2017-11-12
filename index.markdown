@@ -2,7 +2,7 @@
 layout: default
 title: "Home"
 ---
-<img style="float: left; width: 250px; margin: 0 10px 10px 0" src="/assets/photo.jpg" alt="pic" />
+<img style="float: left; width: 250px; margin: 0 10px 10px 0" src="/assets/wagpic.jpg" alt="pic" />
 
 I'm a PhD candidate in political science at Yale University and a graduate student affiliate at the 
 [Institution for Social and Policy Studies](https://isps.yale.edu/)and the 
