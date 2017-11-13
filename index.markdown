@@ -15,6 +15,6 @@ researching how dissatisfaction with government affects support for redistributi
 
 I am an experienced statistical consultant and enjoy collaborating with industry and government on a variety of applied research projects. At Yale, I work as a statistical consultant at the [StatLab](http://statlab.stat.yale.edu/). Before graduate school I worked in public policy as a Research Fellow in the [Melbourne Institute of Applied Economics and Social Research](http://melbourneinstitute.unimelb.edu.au/) at the [University of Melbourne](http://www.unimelb.edu.au/). 
 
-I completed a M.A. in Statistics from the [Department of Statistics and Data Science](http://statistics.yale.edu/) at Yale in 2017 and an MPhil in Political Science. I have an undergraduate degree in Accounting and Economics from the [Quinlan School of Business](https://www.luc.edu/quinlan/index.shtml) at Loyola University Chicago. My academic CV is [here](https://kylepeyton.github.io/assets/Peyton_Kyle_CV.pdf).
+I completed a MA in Statistics from the [Department of Statistics and Data Science](http://statistics.yale.edu/) at Yale in 2017 and an MPhil in Political Science. I have an undergraduate degree in Accounting and Economics from the [Quinlan School of Business](https://www.luc.edu/quinlan/index.shtml) at Loyola University Chicago. My academic CV is [here](https://kylepeyton.github.io/assets/Peyton_Kyle_CV.pdf).
 
 
