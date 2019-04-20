@@ -4,10 +4,10 @@ title: "Contact"
 ---
 
 **Address:**  
+87 Trumbull Street, C321
 Institution for Social and Policy Studies  
 Yale University  
-77 Prospect Street
-New Haven, CT 06520-8301
+New Haven, CT 06511
 
 **Email:**  
 kyle.peyton@yale.edu  
@@ -26,13 +26,6 @@ kyle.peyton@yale.edu
   <li>
     <a href="https://github.com/{{ site.github_username }}">
       <i class="fa fa-github"></i> GitHub
-    </a>
-  </li>
-{% endif %}
-{% if site.linkedin_username %}
-  <li>
-    <a href="https://linkedin.com/in/{{ site.linkedin_username }}">
-      <i class="fa fa-linkedin"></i> LinkedIn
     </a>
   </li>
 {% endif %}
