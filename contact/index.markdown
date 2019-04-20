@@ -10,5 +10,5 @@ Yale University
 New Haven, CT 06511
 
 **Email:**  
-kyle.peyton <at> yale dot edu  
+kyle.peyton &#60;at&#62; yale dot edu  
 
