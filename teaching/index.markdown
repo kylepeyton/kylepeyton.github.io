@@ -1,6 +1,6 @@
 ---
 layout: design-kp
-title: "Teaching"
+title: "teaching"
 date:   2019-04-12
 ---
 
