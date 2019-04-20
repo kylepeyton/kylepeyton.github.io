@@ -1,6 +1,6 @@
 ---
 layout: design-kp
-title: "Research"
+title: "research"
 date:   2019-04-12
 ---
 
