@@ -4,7 +4,7 @@ title: "Contact"
 ---
 
 **Address:**  
-87 Trumbull Street, C321
+87 Trumbull Street, C321 <br />
 Institution for Social and Policy Studies  
 Yale University  
 New Haven, CT 06511
