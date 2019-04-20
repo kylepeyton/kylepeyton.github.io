@@ -1,43 +1,154 @@
-body {
-    margin: 60px auto;
-    width: 70%;
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,700);
+
+html, body, .container, .row {
+    min-height: 100%;
+    height: 100%;
+	font-family: 'Roboto', "Trebuchet MS", Helvetica, sans-serif;
+	font-size: 16px;
 }
-nav ul, footer ul {
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
-    padding: 0px;
-    list-style: none;
-    font-weight: bold;
-}
-nav ul li, footer ul li {
-    display: inline;
-    margin-left: 200px;
-}
-a {
-    text-decoration: none;
-    color: #333;
-}
-a:hover {
-    text-decoration: underline;
+
+h1, h2, h3 {
+	font-weight: bold;
 }
 h1 {
-    font-size: 2.5em;
-    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+	font-size: 64px;
+	text-transform: uppercase;
+	margin: 0;
 }
-p {
-    font-size: 1.2em;
-    line-height: 1em;
-    color: #333;
+h2 {
+	font-size: 24px;
 }
-footer {
-    border-top: 1px solid #d5d5d5;
-    font-size: .8em;
+h3 {
+	font-size: 18px;
+}
+a {
+	text-decoration: none;
+}
+a:link {
+	color: #0645AD;
+}
+a:visited {
+	color: #0B0080;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:active {
+	color: #FAA700;
 }
 
-ul.posts { 
-    margin: 20px auto 40px; 
-    font-size: 1.5em;
+.title {
+	margin-bottom: 60px;
+}
+.title ul {
+	list-style-type: none;
+   margin-top: 20px;
+	padding: 0;
+}
+.title ul li {
+   margin-top: 6px;
 }
 
-ul.posts li {
-    list-style: none;
+.sidecol {
+	padding-top: 40px;
+	text-align: center;
+}
+.sidecol .img-responsive {
+	margin: 0 auto 30px auto;
+}
+.sidecol ul {
+	list-style-type: none;
+   margin: 0;
+	padding: 0;
+}
+.sidecol .menu {
+	font-size: 18px;
+	margin-bottom: 30px;
+}
+.sidecol .menu .active {
+	font-weight: bold;
+}
+.sidecol .menu a:visited {
+	color: #0645AD;
+}
+
+.sidecol .site-btns {
+	font-size: 36px;
+	margin: 20px 0;
+}
+.sidecol .site-btns li {
+	display: inline-block;
+	padding: 0 5px;
+}
+.sidecol .site-btns a:link {
+	color: #000000;
+}
+.sidecol .site-btns a:visited {
+	color: #000000;
+}
+.sidecol .site-btns a:hover {
+	color: #0645AD;
+}
+
+.sidecol h3 {
+	margin-bottom: 6px;
+}
+.sidecol address {
+	margin-bottom: 30px;
+}
+.sidecol address.contact {
+	line-height: 1.8;
+}
+
+.maintext {
+	padding: 40px 30px;
+	border-left-style: solid;
+	border-left-width: 1px;
+    min-height: 100%;
+}
+.maintext h2 {
+	margin-top: 40px;
+}
+
+
+.updated-time {
+	font-size: 12px;
+	margin: 50px 0 0 0;
+	text-align: right;
+}
+
+
+.paperlist {
+	padding: 0 20px;
+    list-style-type: square;
+}
+.paperlist li {
+    margin: 10px 0;
+}
+.paperlist h4 {
+	font-size: 16px;
+	margin: 0;
+}
+.paperlist .collapsecontainer {
+	max-width: 600px;
+}
+.paperlist .paperinfo {
+	padding-left: 15px;
+	font-size: 14px;
+	max-width: 500px;
+}
+.paperlist .paperinfo .coauthors {
+	font-style: italic;
+}
+.paperlist .paperinfo .journalname {
+	font-style: italic;
+}
+.paperlist .abstract:before {
+	content: "Abstract | ";
+	font-weight: bold;
+}
+.paperlist .abstract {
+	margin: 6px;
+	font-size: 12px;
+	text-align: justify;
 }
