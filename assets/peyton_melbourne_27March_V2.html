@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Causal Inference and Experimentation</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kyle Peyton" />
+    <meta name="date" content="2023-03-27" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Causal Inference and Experimentation
+]
+.subtitle[
+## University of Melbourne
+]
+.author[
+### Kyle Peyton
+]
+.date[
+### 27 March 2023
+]
+
+---
+
+count: false
+class: hide-count
+&lt;style type="text/css"&gt;
+.inverse .remark-slide-number {
+  display: none;
+}
+.hide-count .remark-slide-number {
+  display: none;
+}
+.my-slide h2 + p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.custom-left {
+  float: left;
+  width: 40%; /* Adjust this percentage for the image */
+}
+
+.custom-right {
+  float: right;
+  width: 60%; /* Adjust this percentage for the bullet points */
+}
+
+.custom-left-rev {
+  float: left;
+  width: 60%; /* Adjust this percentage for the image */
+}
+
+.custom-right-rev {
+  float: right;
+  width: 40%; /* Adjust this percentage for the bullet points */
+}
+
+.custom-pull-left {
+  float: left;
+  width: 50%; /* Adjust this percentage for the image */
+}
+
+.custom-pull-right {
+  float: right;
+  width: 50%; /* Adjust this percentage for the bullet points */
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+&lt;div style = "position:fixed; visibility: hidden"&gt;
+`$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$`
+`$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$`
+`$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$`
+&lt;/div&gt;
+
+&lt;script type="text/x-mathjax-config"&gt;
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+&lt;/script&gt;
+
+&lt;style&gt;
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+&lt;/style&gt;
+
+&lt;style&gt;
+  .remark-slide-content:not(.title-slide) &gt; h1 {
+    margin-top: 0.15em;
+    margin-bottom: 0.25em; 
+  }
+  
+  .remark-slide-content:not(.title-slide) &gt; h2 {
+    margin-bottom: 0.25em; 
+  }
+  
+  .remark-slide-content {
+    padding-left: 5%; 
+    padding-right: 5%; 
+  }
+&lt;/style&gt;
+
+# Roadmap for today
+--
+
+- Introduction to causal inference and experimentation
+
+--
+
+- Description of classroom activity to facilitate student learning
+
+--
+
+- Overview of my research agenda and potential contributions to the School and the University of Melbourne
+
+--
+
+## Learning objectives:
+
+--
+
+1. Introduction to counterfactuals and the logic of causal inference
+
+--
+
+2. Description of the fundamental problem of causal inference 
+
+--
+
+3. Understand why randomization "solves" the problem
+
+--
+
+4. Discover a new causal effect together! 
+
+---
+count: false
+# What is Causal Inference? 
+
+--
+&lt;div style="display: flex; justify-content: center; align-items: center; width: 100%;"&gt;
+  &lt;div style="width: 50%; padding-left: 0px; padding-right: 10px"&gt;
+    &lt;img src="img/frost_roads.png" style="max-width: 100%; max-height: 100%;"&gt;
+  &lt;/div&gt;
+
+  &lt;div style="width: 50%; padding-right: 0px; padding-left: 5px; text-align: left; white-space: nowrap;"&gt;
+    Two roads diverged in a yellow wood,&lt;br&gt;
+    And sorry I could not travel both&lt;br&gt;
+    And be one traveler, long I stood&lt;br&gt;
+    And looked down one as far as I could&lt;br&gt;
+    To where it bent in the undergrowth;&lt;br&gt;
+    &lt;br&gt;
+    -Robert Frost, &lt;em&gt;The Road Not Taken&lt;/em&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+--
+
+We can only observe what happens in reality 
+
+--
+
+We do not observe what would have happened if we made different decisions 
+
+--
+
+We can nevertheless **imagine** these counterfactual worlds
+
+--
+
+Causal inference involves comparisons between **potential outcomes**
+
+&lt;!-- --- --&gt;
+&lt;!-- count: false --&gt;
+&lt;!-- # What is causal inference?  --&gt;
+
+&lt;!-- &lt;div style="display: flex; justify-content: center; align-items: center; width: 100%;"&gt; --&gt;
+&lt;!--   &lt;div style="width: 50%; padding-left: 0px; padding-right: 10px"&gt; --&gt;
+&lt;!--     &lt;img src="img/frost_roads.png" style="max-width: 100%; max-height: 100%;"&gt; --&gt;
+&lt;!--   &lt;/div&gt; --&gt;
+&lt;!--   &lt;div style="width: 50%; padding-right: 0px; padding-left: 5px; text-align: left; white-space: nowrap; color: green;"&gt; --&gt;
+&lt;!--     Two treatments emerged in a research field,&lt;br&gt; --&gt;
+&lt;!--     And sorry I could not observe both&lt;br&gt; --&gt;
+&lt;!--     And be one analyst, long I pondered&lt;br&gt; --&gt;
+&lt;!--     And studied one as far as I could&lt;br&gt; --&gt;
+&lt;!--     To grasp the potential outcome that lay untold;&lt;br&gt; --&gt;
+&lt;!--     &lt;br&gt; --&gt;
+&lt;!--     -&lt;em&gt;The Potential Outcome Not Sampled&lt;/em&gt; --&gt;
+&lt;!--   &lt;/div&gt; --&gt;
+&lt;!-- &lt;/div&gt; --&gt;
+
+
+&lt;!-- We can only observe what happens in reality  --&gt;
+
+
+&lt;!-- We do not observe what would have happened if we made different decisions  --&gt;
+
+
+&lt;!-- We can nevertheless **imagine** these counterfactual worlds --&gt;
+
+
+&lt;!-- Causal inference involves comparisons between **potential outcomes** --&gt;
+
+---
+# What is Causal Inference? 
+
+--
+&lt;div style="display: flex; justify-content: center; align-items: center;"&gt;
+  &lt;div class="slide: data-xaringan-increment" style="background-color: black; color: white; padding: 40px; width: 200px; text-align: center; margin-right: 20px; border-radius: 10px;"&gt;
+    Factual
+  &lt;/div&gt;
+--
+  &lt;span class="slide: data-xaringan-increment" style="font-size: 2em;"&gt;vs&lt;/span&gt;
+  &lt;div class="slide: data-xaringan-increment" style="background-color: white; color: black; padding: 40px; width: 200px; text-align: center; margin-left: 20px; border-radius: 10px; border: 2px dashed black;"&gt;
+    Counterfactual
+  &lt;/div&gt;
+&lt;/div&gt;
+--
+
+## Examples of Causal Questions
+
+&lt;style&gt;
+  .remark-slide-content li ul li {
+    font-size: 0.9em;
+  }
+
+  .remark-slide-content ul li {
+    margin-bottom: 0.25em;
+  }
+    
+  /* Decrease the space between the second-level bullet points */
+  .remark-slide-content li ul li {
+    margin-bottom: 0.25em; 
+    margin-top: 0.5em;
+  }
+  
+  .reveal ul ul, .reveal ol ol {
+  font-size: inherit;
+  }
+  
+&lt;/style&gt;
+--
+
+- Do mRNA vaccines (e.g., "Spikevax") reduce the chances of getting Covid?
+
+--
+
+  - Infection rates decreased after a vaccination program was implemented 
+
+--
+  - Would infection rates have gone up if the vaccination program *was not* implemented?
+
+--
+
+- Do community policing practices lead to increased public trust and a greater willingness to cooperate with the police?
+
+--
+  - Police-community relations are characterized by conflict and distrust in places where the police do not use community policing
+
+--
+  - Would things be different in those places if the police *did* use community policing?
+  
+--
+
+**Fundamental problem of causal inference:** we can never observe counterfactual outcomes, they must be inferred
+
+---
+class: left, top
+# Example: Covid-19 Vaccination Study
+&lt;div style="display: flex; justify-content: center; align-items: center; width: 100%;"&gt;
+  &lt;div style="width: 50%; padding-left:0; padding-right:5px"&gt;
+    &lt;img src="img/moderna_dose.png" class="presentation-image" style="max-width: 100%; max-height: 100%;"&gt;
+    &lt;figcaption style="font-size: small; margin-top: 0px;"&gt;Source: &lt;em&gt; Ted S. Warren/Associated Press, &lt;/em&gt;2020&lt;/figcaption&gt;
+  &lt;/div&gt;
+  &lt;div style="width: 50%; padding-left:5px; padding-right:0px"&gt;
+    &lt;img src="img/moderna_result.png" class="presentation-image" style="max-width: 100%; max-height: 100%;"&gt;
+&lt;figcaption style="font-size: small; margin-top: 0px;"&gt;Source: Baden et al.,&lt;em&gt; New England Journal of Medicine, &lt;/em&gt;2020&lt;/figcaption&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  function setEqualHeight(images) {
+    var maxHeight = 0;
+
+    images.forEach(function(img) {
+      img.onload = function() {
+        maxHeight = Math.max(maxHeight, img.clientHeight);
+        images.forEach(function(innerImg) {
+          innerImg.style.height = maxHeight + 'px';
+          innerImg.style.objectFit = 'contain';
+        });
+      };
+    });
+  }
+
+  setEqualHeight(document.querySelectorAll('.presentation-image'));
+&lt;/script&gt;
+
+- Can mRNA vaccines reduce the incidence of Covid-19 infections and prevent illness, including severe disease?
+
+--
+
+  - Randomly assign individuals to either receive a shot with the active vaccine ("treatment") or a shot with saline placebo ("control")
+  
+--
+
+  - Compare the number of new symptomatic COVID-19 cases that were reported among participants in each group
+
+
+---
+class: left, top
+
+# Example: Community Policing Study
+&lt;div style="display: flex; justify-content: center; align-items: center; width: 100%;"&gt;
+  &lt;div style="width: 50%; padding-left:0; padding-right:5px"&gt;
+    &lt;img src="img/door_knock.png" class="presentation-image" style="max-width: 100%; max-height: 100%;"&gt;
+    &lt;figcaption style="font-size: small; margin-top: 0px;"&gt;Source: fieldwork conducted in New Haven, Connecticut, 2019&lt;/figcaption&gt;
+  &lt;/div&gt;
+  &lt;div style="width: 50%; padding-left:5px; padding-right:0px"&gt;
+    &lt;img src="img/pnas_abstract.png" class="presentation-image" style="max-width: 100%; max-height: 100%;"&gt;
+    &lt;figcaption style="font-size: small; margin-top: 0px;"&gt;Source: Peyton et al.,&lt;em&gt; Proceedings of the National Academy of Sciences &lt;/em&gt;, 2019&lt;/figcaption&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  function setEqualHeight(images) {
+    var maxHeight = 0;
+
+    images.forEach(function(img) {
+      img.onload = function() {
+        maxHeight = Math.max(maxHeight, img.clientHeight);
+        images.forEach(function(innerImg) {
+          innerImg.style.height = maxHeight + 'px';
+          innerImg.style.objectFit = 'contain';
+        });
+      };
+    });
+  }
+
+  setEqualHeight(document.querySelectorAll('.presentation-image'));
+&lt;/script&gt;
+
+
+--
+
+- Can changing police behavior in the field increase trust and cooperation between officers and the communities they serve? 
+
+--
+
+  - Randomly assign households to experience positive, non-enforcement contact with uniformed patrol officers ("treatment") or no contact ("control")
+
+--
+
+  - Compare attitudes towards police (e.g., trust, willingness to cooperate) among residents in each group 
+
+---
+class:custom
+# Measuring Causal Effects: Individual Comparisons
+
+&lt;div class="custom-left"&gt;
+  &lt;br&gt;
+  &lt;br&gt;
+  &lt;br&gt;
+  &lt;img src="img/fpoci.png" style="width: 100%; height: 100%;"&gt;
+&lt;/div&gt;
+
+--
+&lt;div class="custom-right" style="display: flex; justify-content: center;"&gt;
+  &lt;p style="margin-top: 2.5em; text-align: left; width: 90%;"&gt;Can we observe &lt;strong&gt;both&lt;/strong&gt; potential outcomes for the same individual at the exact same time under the same circumstance?&lt;/p&gt;
+&lt;/div&gt;
+
+--
+&lt;div data-xaringan-increment class="custom-right" style="display: flex; justify-content: center; align-items: center;"&gt;
+  &lt;img src="img/nopecat.png" style="width: 40%; height: 6%;"&gt;
+&lt;/div&gt;
+&lt;div class="custom-right" style="display: flex; justify-content: center;"&gt;
+  &lt;p style="margin-bottom: 0; text-align: left; width: 90%;"&gt;&lt;strong&gt;Fundamental Problem of Causal Inference&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+--
+&lt;div class="custom-right" style="display: flex; justify-content: center;"&gt;
+  &lt;p style="margin-top: 1em; text-align: left; width: 90%;"&gt;&lt;strong&gt;Solution&lt;/strong&gt;: find "good" approximations for counterfactual outcomes&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+# Measuring Causal Effects: Individual Comparisons
+&lt;br&gt;
+&lt;table style="border-collapse: collapse; width: 60%; padding-top: 10px"&gt;
+  &lt;tr style="background-color: #c6c6c6; border-bottom: 0.5px solid; border-top: 1.5px solid; padding-top: 0px; padding-bottom: 0px;"&gt;
+    &lt;th style="background-color: #c6c6c6; text-align: left; font-weight: bold; width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 1.2em; line-height: 1.2em; margin-top: 0em;"&gt;&lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Community policing visit &lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Trust in police&lt;/div&gt;&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="text-align: left;"&gt;Person 1&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Yes&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;High&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="text-align: left;"&gt;Person 2&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;No&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Low&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;br&gt;
+
+--
+
+Did Person 1 report a high level of trust **because** they received the community policing visit? 
+
+--
+
+&lt;br&gt;
+&lt;table style="border-collapse: collapse; width: 90%; padding-top: 10px"&gt;
+  &lt;tr style="background-color: #c6c6c6; border-bottom: 0.5px solid; border-top: 1.5px solid; padding-top: 0px; padding-bottom: 0px;"&gt;
+    &lt;th style="background-color: #c6c6c6; text-align: left; font-weight: bold; width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 1.2em; line-height: 1.2em; margin-top: 0em;"&gt;&lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Community policing visit &lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Trust in police&lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Race/ethnicity&lt;/div&gt;&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="text-align: left;"&gt;Person 1&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Yes&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;High&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;White&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="text-align: left;"&gt;Person 2&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;No&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Low&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Black&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;br&gt;
+
+---
+count: false
+# Measuring Causal Effects: Individual Comparisons
+&lt;br&gt;
+&lt;table style="border-collapse: collapse; width: 60%; padding-top: 10px"&gt;
+  &lt;tr style="background-color: #c6c6c6; border-bottom: 0.5px solid; border-top: 1.5px solid; padding-top: 0px; padding-bottom: 0px;"&gt;
+    &lt;th style="background-color: #c6c6c6; text-align: left; font-weight: bold; width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 1.2em; line-height: 1.2em; margin-top: 0em;"&gt;&lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Community policing visit &lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Trust in police&lt;/div&gt;&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="text-align: left;"&gt;Person 1&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Yes&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;High&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="text-align: left;"&gt;Person 2&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;No&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Low&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;br&gt;
+
+
+Did Person 1 report a high level of trust **because** they received the community policing visit? 
+
+
+&lt;br&gt;
+&lt;table style="border-collapse: collapse; width: 90%; padding-top: 10px"&gt;
+  &lt;tr style="background-color: #c6c6c6; border-bottom: 0.5px solid; border-top: 1.5px solid; padding-top: 0px; padding-bottom: 0px;"&gt;
+    &lt;th style="background-color: #c6c6c6; text-align: left; font-weight: bold; width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 1.2em; line-height: 1.2em; margin-top: 0em;"&gt;&lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Community policing visit &lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Trust in police&lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Race/ethnicity&lt;/div&gt;&lt;/th&gt;
+    &lt;th style="width: 100px; word-wrap: break-word; vertical-align: middle;"&gt;&lt;div style="height: 2.4em; line-height: 1.2em; margin-top: 0em; display: flex; align-items: center; justify-content: center;"&gt;Prior contact&lt;/div&gt;&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="text-align: left;"&gt;Person 1&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Yes&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;High&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;White&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;No&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td style="text-align: left;"&gt;Person 2&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;No&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Low&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Black&lt;/td&gt;
+    &lt;td style="text-align: center;"&gt;Yes&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;br&gt;
+
+---
+class:custom
+# Measuring Causal Effects: Overcoming Challenges
+
+&lt;div class="custom-left-rev" style="display: flex; justify-content: center;"&gt;
+  &lt;p style="margin-top: 2.5em; text-align: left; width: 90%;"&gt;&lt;strong&gt;Goal:&lt;/strong&gt; compare people that that are identical on all dimensions &lt;em&gt;except for &lt;/em&gt; the treatment they received!&lt;/p&gt;
+&lt;/div&gt;
+
+--
+&lt;div class="custom-right-rev"&gt;
+  &lt;img src="img/twins.png" style="width: 100%; height: 100%; margin-top:1.5em; margin-bottom:0em"&gt;
+&lt;/div&gt;
+
+&lt;div class="custom-left-rev" style="display: flex; justify-content: center;"&gt;
+  &lt;p style="margin-top: 0.5em; text-align: left; width: 90%;"&gt;&lt;strong&gt;Problem:&lt;/strong&gt; we can't "control for" everything &lt;/p&gt;
+&lt;/div&gt;
+
+--
+
+&lt;div class="custom-left-rev" style="display: flex; justify-content: center;"&gt;
+  &lt;p style="margin-top: .5em; text-align: left; width: 90%;"&gt;&lt;strong&gt;Solution:&lt;/strong&gt; random assignment of treatment!&lt;/p&gt;
+&lt;/div&gt;
+
+--
+
+&lt;div class="custom-left-rev" style="display: flex; justify-content: center;"&gt;
+  &lt;p style="margin-top: .5em; text-align: left; width: 90%;"&gt;&lt;strong&gt;Randomized experiment:&lt;/strong&gt; research design that ensures treatment and control groups are, &lt;em&gt;on average&lt;/em&gt;, identical to each other on all observed (and unobserved) background characteristics&lt;/p&gt;
+&lt;/div&gt;
+
+--
+
+&lt;div class="custom-left-rev" style="display: flex; justify-content: center;"&gt;
+  &lt;p style="margin-top: .5em; text-align: left; width: 90%;"&gt;&lt;strong&gt;Implication:&lt;/strong&gt; the only thing that distinguishes the two groups, besides the treatment itself, is chance. &lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Randomization in the Policing Experiment
+
+--
+.center[
+&lt;iframe src="https://kyle-peyton.shinyapps.io/BalanceR/" width="100%" height="600" frameborder="0"&gt;&lt;/iframe&gt;
+]
+
+
+---
+# Classroom Activity: Survey Experiment 
+
+--
+
+- "An experiment that looks like a survey" (Gelman and Nolan. &lt;em&gt; Teaching Statistics.&lt;/em&gt; Oxford University Press)
+
+--
+
+- Short survey before class first asks a few background questions (e.g., age) 
+--
+
+- Next, half the students would see the following question, with **Z = 10**. The other half would see the same question, but with **Z = 65**:
+
+.center[
+&lt;div style="display: flex;"&gt;
+  &lt;div class="incremental" style="flex: 1; padding-top: .5em"&gt;
+    &lt;img src="img/student_survey_low.png" style="width: 60%"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+]
+
+---
+# Classroom Activity: Discussion and Analysis
+
+**Question 1**: will the two groups be balanced on average age, etc.?
+
+--
+
+Of course! The groups were created by random assignment.
+
+--
+
+**Question 2**: will the value of **Z** that students were assigned affect the average guess?
+
+--
+
+Of course not! Everyone was told it was just a randomly generated number...
+
+--
+
+However, the average guess when **Z = 10** will be *lower* than when **Z = 65**
+--
+&lt;img src="peyton_melbourne_27March_V2_files/figure-html/example-plot-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+# Overview of research agenda
+
+--
+
+**Broad interests**: how intergroup relations and attitudes toward government shape beliefs, preferences, and behaviors.
+
+--
+
+**Empirical approach**: statistics, causal inference, and qualitative field research. 
+
+--
+
+### Intergroup Conflict and Cooperation
+
+--
+How does interaction between different social groups influence trust, cooperation, and the dynamics between these groups in various political and social contexts?
+
+--
+
+### Trust in Government and Inequality
+
+--
+How do economic disparities, perceptions of fairness, and peoples' trust in political institutions interact to shape policy preferences and political engagement?
+&lt;!-- How do inequality and experiences with government shape people's political preferences and behaviors? --&gt;
+
+--
+
+### Fairness, Prejudice, and Political Resentment
+
+--
+How do perceptions of fairness and prejudiced attitudes contribute to political resentment and shape the dynamics of group-based conflicts?
+&lt;!-- How do people's beliefs about fairness and justice influence political conflicts between groups? --&gt;
+
+
+---
+# Potential contributions
+
+--
+**Research and collaboration:**
+
+--
+
+- "Problem solving" approach uses qualitative and quantitative empiricial methods to address normatively significant, real-world problems
+
+--
+
+- Strong publication record, and demonstrated capacity to attract research funding
+
+--
+
+- Experience forging external partnerships and interdisciplinary collaborations
+
+--
+
+**Teaching and student supervision:**
+
+--
+
+- Demonstrated excellence in teaching research methods to students at all levels, from a wide variety of disciplines
+
+--
+
+- Committment to student mentoring and research training using the collaborative lab-style research model
+
+--
+
+**Service and engagement:**
+
+--
+
+- Highly skilled at leading complex, large-scale research projects and organising conferences/seminars for variety of audiences
+
+--
+
+- Keen to contribute to programs/courses in research methods training at all levels
+  
+---
+class: center, middle, inverse
+count: false
+# Thank you!
+
+
+
+&lt;div style="font-size: 1.5em; margin-bottom: 0.5em; margin-top: 0.5em;"&gt;
+  &lt;span style="display: inline-block; vertical-align: middle;"&gt;&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:white;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"&gt;&lt;/path&gt;&lt;/svg&gt; &lt;a href="mailto:kyle.peyton@acu.edu.au"&gt;kyle.peyton@acu.edu.au&lt;/a&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div style="font-size: 1.5em; margin-bottom: 0.5em;"&gt;
+  &lt;span style="display: inline-block; vertical-align: middle;"&gt;&lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:white;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M0 352a160 160 0 0 0 160 160h64a160 160 0 0 0 160-160V224H0zM176 0h-16A160 160 0 0 0 0 160v32h176zm48 0h-16v192h176v-32A160 160 0 0 0 224 0z"&gt;&lt;/path&gt;&lt;/svg&gt; &lt;a href="https://kyle-peyton.com/"&gt;https://kyle-peyton.com/&lt;/a&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div style="font-size: 1.5em; margin-bottom: 0.5em;"&gt;
+  &lt;span style="display: inline-block; vertical-align: middle;"&gt;&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:white;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"&gt;&lt;/path&gt;&lt;/svg&gt; &lt;a href="https://twitter.com/pylekeyton"&gt;@pylekeyton&lt;/a&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
